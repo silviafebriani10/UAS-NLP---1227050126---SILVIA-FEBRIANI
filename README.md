@@ -1,184 +1,155 @@
+UAS Natural Language Processing
+
 Nama: Silvia Febriani
 NIM: 1227050126
 Mata Kuliah: Natural Language Processing
-🎯 1. Deskripsi Proyek
 
-Proyek ini merupakan tugas akhir UAS mata kuliah Natural Language Processing (NLP).
-Tujuan utama dari proyek ini adalah membangun sistem Analisis Sentimen menggunakan komentar publik terkait pelajaran AI untuk anak sekolah.
+1. Deskripsi Proyek
 
-Proses yang dilakukan mulai dari:
+Proyek ini merupakan tugas UAS mata kuliah Natural Language Processing (NLP).
+Tujuan utama proyek ini adalah membangun sistem Sentiment Analysis pada komentar publik mengenai pelajaran AI untuk anak sekolah.
 
-Mengidentifikasi tujuan NLP
+Proyek ini mencakup beberapa tahapan utama:
 
-Mengumpulkan dataset
+Identifikasi tujuan NLP
 
-Melakukan text preprocessing
+Pengumpulan dataset
 
-Melatih model Machine Learning (SVM + TF-IDF)
+Text preprocessing
 
-Memprediksi sentimen pada data baru
+Pelatihan model Machine Learning (SVM + TF-IDF)
 
-Menyimpan hasil dan model
+Prediksi sentimen pada dataset tanpa label
 
-Model yang dibangun dapat mengklasifikasikan sentimen menjadi:
+Penyimpanan model dan hasil prediksi
 
-0 → Negative
+Model mengklasifikasikan sentimen menjadi tiga kelas:
 
-1 → Neutral
+0 = Negative
 
-2 → Positive
+1 = Neutral
 
-🎯 2. Tujuan NLP (Goals)
+2 = Positive
 
-Tujuan dari task NLP ini adalah:
+2. Tujuan NLP
 
-✔ Membangun model analisis sentimen pada komentar tentang topik pelajaran AI
-✔ Mengklasifikasikan teks ke dalam 3 kelas: negative, neutral, positive
-✔ Membersihkan teks menggunakan preprocessing berbahasa Indonesia
-✔ Menerapkan teknik NLP modern seperti TF-IDF, stemming, stopwords, dan slang normalization
-✔ Melakukan inference pada dataset besar yang tidak memiliki label
+Tujuan dari task NLP dalam proyek ini adalah:
 
-Task ini masuk kategori Text Classification / Sentiment Analysis.
+Membangun model analisis sentimen pada komentar terkait pelajaran AI
 
-📦 3. Dataset
+Mengklasifikasikan teks ke dalam tiga kelas sentimen
 
-Proyek ini menggunakan dua dataset:
+Membersihkan teks menggunakan preprocessing bahasa Indonesia
 
-1️⃣ x-data-labeled.csv
+Menerapkan TF-IDF, stemming, stopwords removal, dan normalisasi kata tidak baku
 
-Dataset berlabel, digunakan untuk training model.
+Melakukan prediksi pada dataset yang tidak memiliki label
+
+Task ini tergolong dalam Text Classification / Sentiment Analysis.
+
+3. Dataset
+
+Proyek ini menggunakan dua dataset utama:
+
+1. x-data-labeled.csv
+
+Dataset berlabel untuk keperluan training.
 Kolom:
 
 komentar
 
-label (negative/neutral/positive)
+label (negative, neutral, positive)
 
-2️⃣ x-data-all.csv
+2. x-data-all.csv
 
-Dataset besar tanpa label.
-Digunakan sebagai input untuk prediksi model setelah training.
+Dataset tanpa label, digunakan untuk prediksi setelah training.
 
-Dataset output:
+Dataset Output:
 
 x-data-labeled_cleaned.csv — hasil preprocessing
 
 x-data-all_with_predictions.csv — hasil prediksi model
 
-🧹 4. Tahap Preprocessing
+4. Preprocessing Teks
 
-Proses preprocessing dilakukan supaya teks menjadi bersih dan siap digunakan model ML.
+Tahap preprocessing dilakukan untuk membersihkan teks sebelum diproses oleh model.
 
 Jenis preprocessing yang dilakukan:
 
-✔ Case folding
+Case folding (mengubah teks menjadi huruf kecil)
 
-Mengubah seluruh teks menjadi huruf kecil.
+Menghapus URL, mention, hashtag, angka, karakter berulang, dan tanda baca
 
-✔ Menghapus:
+Normalisasi slang menggunakan kamus kata tidak baku
 
-URL
+Konversi emoji menjadi sentimen (misal “😂” menjadi positif)
 
-Mention (@username)
+Tokenisasi
 
-Hashtag
+Stopwords removal (menggunakan NLTK bahasa Indonesia)
 
-Tanda baca
+Stemming menggunakan Sastrawi
 
-Karakter berulang
+Deteksi pola sarkasme tertentu (opsional, sesuai coding Anda)
 
-✔ Normalisasi slang
+5. Model Machine Learning
 
-Menggunakan kamus slang dictionary, contoh:
+Model yang digunakan dalam proyek ini:
 
-“gak” → “tidak”
-
-“anj” → “kasar”
-
-“gue” → “saya”
-
-✔ Mengubah emoji menjadi sentimen
-
-😡 → negatif
-
-😂 → positif
-
-👍 → positif
-
-✔ Tokenisasi
-✔ Stopwords removal
-
-Menggunakan NLTK stopwords bahasa Indonesia.
-
-✔ Stemming
-
-Menggunakan library Sastrawi.
-
-✔ Deteksi Sarkasme
-
-Jika terdapat pola seperti:
-
-"hebat banget ya"
-
-"ndasmu"
-
-Maka token sarcasm ditambahkan.
-
-🤖 5. Model Machine Learning
-
-Model yang digunakan:
-
-🔹 TF-IDF Vectorizer
+TF-IDF Vectorizer
 
 max_features = 5000
+Digunakan untuk mengubah teks menjadi vektor numerik.
 
-Mengubah teks menjadi vektor angka agar bisa diproses model.
+Support Vector Machine (SVM Classifier)
 
-🔹 Support Vector Machine (SVM Classifier)
+Dipilih karena:
 
-Digunakan karena:
+Performa baik untuk text classification
 
-Kinerja sangat baik untuk text classification
+Stabil pada dataset kecil–menengah
 
-Stabil pada ukuran data kecil–sedang
+Cocok untuk data sparse seperti TF-IDF
 
-Akurasi tinggi pada dataset sparse seperti TF-IDF
-
-Model disimpan dalam file:
+Model yang disimpan:
 
 svm_tfidf_model.joblib
 
 tfidf_vectorizer.joblib
 
-🧪 6. Training & Evaluasi
+6. Training dan Evaluasi
 
 Model dilatih menggunakan:
 
 train_test_split(test_size=0.2, stratify=y)
 
 
-Evaluasi yang digunakan:
+Evaluasi yang dilakukan:
 
-Accuracy Score
+Accuracy score
 
-Classification Report
+Classification report
 
-Label mapping:
+Mapping label:
 
-{'negative': 0, 'neutral': 1, 'positive': 2}
+negative = 0
+neutral  = 1
+positive = 2
 
-📝 7. Prediksi Data Tanpa Label
+7. Prediksi pada Data Tanpa Label
 
-Dataset x-data-all.csv diproses sebagai berikut:
+Dataset x-data-all.csv diproses dengan langkah berikut:
 
-Preprocess teks
+Preprocessing teks
 
-Transform ke TF-IDF
+Transformasi menggunakan TF-IDF
 
-Prediksi sentimen
+Prediksi sentimen oleh model
 
-Simpan hasil ke file:
+Menyimpan hasil ke file:
 
-📁 x-data-all_with_predictions.csv
+x-data-all_with_predictions.csv
+
 
 Kolom output:
 
@@ -190,7 +161,10 @@ predicted_label
 
 label_name
 
-📂 8. Struktur Folder (Dianjurkan)
+8. Struktur Folder
+
+Struktur direktori yang disarankan:
+
 UAS-NLP-Silvia/
 │
 ├── data/
@@ -206,32 +180,30 @@ UAS-NLP-Silvia/
 ├── UAS_NLP_1227050126_SILVIA_FEBRIANI.ipynb
 └── README.md
 
-🚀 9. Cara Menjalankan Project
-
+9. Cara Menjalankan Program
 1. Install dependencies
-
 pip install pandas numpy scikit-learn Sastrawi nltk joblib
 
-
 2. Jalankan notebook utama
-
 UAS_NLP_1227050126_SILVIA_FEBRIANI.ipynb
 
-
 3. Upload dataset ke folder data/
+4. Jalankan seluruh cell notebook
 
-4. Running semua cell sampai selesai
-
-Hasil prediksi otomatis tersimpan di:
+Hasil prediksi otomatis tersimpan pada:
 
 data/x-data-all_with_predictions.csv
 
-🧷 10. Kesimpulan
+10. Kesimpulan
 
-Proyek ini berhasil:
+Proyek NLP ini berhasil:
 
-✔ Membersihkan dan memproses teks berbahasa Indonesia
-✔ Menggunakan teknik NLP modern
-✔ Melatih model SVM + TF-IDF
-✔ Melakukan klasifikasi sentimen pada dataset besar
-✔ Menghasilkan model yang siap digunakan kembali
+Melakukan preprocessing teks berbahasa Indonesia
+
+Menggunakan teknik NLP modern (TF-IDF, stopwords, stemming)
+
+Melatih model SVM untuk sentiment analysis
+
+Mengklasifikasikan sentimen pada dataset besar
+
+Menghasilkan model yang dapat digunakan kembali untuk prediksi
